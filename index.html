@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8" />
+<link rel="stylesheet" href="leaflet/leaflet.css"/>
+<link rel="stylesheet" href="leaflet.contextmenu-1.5.1/dist/leaflet.contextmenu.css"/>
+ 
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        html, body, #map {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+ 
+</head>
+<body>
+<script src="leaflet/leaflet.js"></script>
+<script src="leaflet.contextmenu-1.5.1/dist/leaflet.contextmenu.js"></script>
+<div id="map"</div>
+<script>
+
+	var params = new URLSearchParams(window.location.search)
+
+	// campaign & zone map
+	var cn = params.get('c')
+	var mp = params.get('m')
+	var cm = "".concat("campaigns/", cn, "/", mp, ".png")
+	
+	// serialized markers
+	ms = params.get('ms')
+	
+	
+	function placeAureliumMarker (e) {placeNewMarker(e.latlng, "aurelium")}
+	function placeCopperMarker (e) {placeNewMarker(e.latlng, "copper")}
+	function placeIronMarker (e) {placeNewMarker(e.latlng, "iron")}
+	function placeSilverMarker (e) {placeNewMarker(e.latlng, "silver")}
+	function placeTinMarker (e) {placeNewMarker(e.latlng, "tin")}
+	  
+	function placeGraniteMarker (e) {placeNewMarker(e.latlng, "granite")}  
+	function placeLimestoneMarker (e) {placeNewMarker(e.latlng, "limestone")}  
+	function placeMarbleMarker (e) {placeNewMarker(e.latlng, "marble")}
+	function placeSlateMarker (e) {placeNewMarker(e.latlng, "slate")}
+	function placeTravertineMarker (e) {placeNewMarker(e.latlng, "travertine")}
+	
+	function placeAshMarker (e) {placeNewMarker(e.latlng, "ash")}  
+	function placeBirchMarker (e) {placeNewMarker(e.latlng, "birch")}  
+	function placeOakMarker (e) {placeNewMarker(e.latlng, "oak")}
+	function placeSpruceMarker (e) {placeNewMarker(e.latlng, "spruce")}
+	function placeYewMarker (e) {placeNewMarker(e.latlng, "yew")}
+	
+	function placeElvenMarker (e) {placeNewMarker(e.latlng, "elven")}
+	function placeGuineceanMarker (e) {placeNewMarker(e.latlng, "guinecean")}
+	function placeHumanMarker (e) {placeNewMarker(e.latlng, "human")}
+	function placeMonsterMarker (e) {placeNewMarker(e.latlng, "monster")}
+	function placeStonebornMarker (e) {placeNewMarker(e.latlng, "stoneborn")}
+	
+	function placeSoftMarker (e) {placeNewMarker(e.latlng, "soft_auroch")}
+	function placeToughMarker (e) {placeNewMarker(e.latlng, "tough_boar")}
+	function placeDurableMarker (e) {placeNewMarker(e.latlng, "durable_bear_spider")}
+	function placeFlexibleMarker (e) {placeNewMarker(e.latlng, "flexible_cat")}
+	function placeStrongMarker (e) {placeNewMarker(e.latlng, "strong_elk_wolf")}
+
+	var map = L.map('map', {
+		crs: L.CRS.Simple,
+		minZoom: -3,
+		contextmenu: true,
+		contextmenuWidth: 160,
+		contextmenuItems: [{
+			text: 'Aurelium',
+			icon: iconImage('aurelium'),
+			callback: placeAureliumMarker
+		}, {
+			text: 'Copper',
+			icon: iconImage('copper'),
+			callback: placeCopperMarker
+		}, {
+			text: 'Iron',
+			icon: iconImage('iron'),
+			callback: placeIronMarker
+		}, {
+			text: 'Silver',
+			icon: iconImage('silver'),
+			callback: placeSilverMarker
+		}, {
+			text: 'Tin',
+			icon: iconImage('tin'),
+			callback: placeTinMarker
+		},'-', {
+			text: 'Granite',
+			icon: iconImage('granite'),
+			callback: placeGraniteMarker
+		}, {
+			text: 'Limestone',
+			icon: iconImage('limestone'),
+			callback: placeLimestoneMarker
+		}, {
+			text: 'Marble',
+			icon: iconImage('marble'),
+			callback: placeMarbleMarker
+		}, {
+			text: 'Slate',
+			icon: iconImage('slate'),
+			callback: placeSlateMarker
+		}, {
+			text: 'Travertine',
+			icon: iconImage('travertine'),
+			callback: placeTravertineMarker
+		},'-', {
+			text: 'Ash',
+			icon: iconImage('ash'),
+			callback: placeAshMarker
+		}, {
+			text: 'Birch',
+			icon: iconImage('birch'),
+			callback: placeBirchMarker
+		}, {
+			text: 'Oak',
+			icon: iconImage('oak'),
+			callback: placeOakMarker
+		}, {
+			text: 'Spruce',
+			icon: iconImage('spruce'),
+			callback: placeSpruceMarker
+		}, {
+			text: 'Yew',
+			icon: iconImage('yew'),
+			callback: placeYewMarker
+		},'-', {
+			text: 'Elven',
+			icon: iconImage('elven'),
+			callback: placeElvenMarker
+		}, {
+			text: 'Guinecean',
+			icon: iconImage('guinecean'),
+			callback: placeGuineceanMarker
+		}, {
+			text: 'Human',
+			icon: iconImage('human'),
+			callback: placeHumanMarker
+		}, {
+			text: 'Monster',
+			icon: iconImage('monster'),
+			callback: placeMonsterMarker
+		}, {
+			text: 'Stoneborn',
+			icon: iconImage('stoneborn'),
+			callback: placeStonebornMarker
+		},'-', {
+			text: 'Soft: Auroch',
+			icon: iconImage('soft_auroch'),
+			callback: placeSoftMarker
+		}, {
+			text: 'Durable: Bear, Spider',
+			icon: iconImage('durable_bear_spider'),
+			callback: placeDurableMarker
+		}, {
+			text: 'Tough: Boar',
+			icon: iconImage('tough_boar'),
+			callback: placeToughMarker
+		}, {
+			text: 'Flexible: Cat',
+			icon: iconImage('flexible_cat'),
+			callback: placeFlexibleMarker
+		}, {
+			text: 'Strong: Elk, Wolf',
+			icon: iconImage('strong_elk_wolf'),
+			callback: placeStrongMarker
+		}]	
+	});
+	
+	var yx = L.latLng;
+
+	var xy = function(x, y) {
+		if (L.Util.isArray(x)) {    // When doing xy([x, y]);
+			return yx(x[1], x[0]);
+		}
+		return yx(y, x);  // When doing xy(x, y);
+	};
+
+	var bounds = [xy(0, 0), xy(1920, 1080)];
+	var image = L.imageOverlay(cm, bounds).addTo(map);	
+
+	map.setView(xy(960, 540), 0);
+	
+	var CFicon = L.Icon.extend({
+		options: {
+		iconUrl: "images/default.png",
+		iconSize:     [32, 32]
+		}
+	});
+	
+	var ma = [];
+	if (ms !== null){
+		try {
+			ma = JSON.parse(ms)
+		}
+		catch(e) {
+		}
+	}
+	
+	// Set markers
+	ma.forEach(placeMarkerFromParam)
+	
+	function placeMarkerFromParam(item, index, arr) {
+      placeMarker(item.c, item.i)
+	} 
+	
+	function placeMarker(latLng, icon) {
+	  console.log(iconImage(icon));
+	  var cficon = new CFicon({iconUrl: iconImage(icon)})
+	  L.marker(latLng, {icon: cficon, title: icon}).addTo(map)	  
+	}
+	
+	function placeNewMarker(latLng, icon) {
+	  placeMarker(latLng, icon)  
+	  appendMarkerToUrl(latLng, icon)
+	}
+	
+	function appendMarkerToUrl (latLng, icon) {
+		var url = new URL(window.location.href);
+		var rawMarkersParam = url.searchParams.get('ms')
+		
+		var markerArray = [];
+		if (rawMarkersParam !== null){
+			try {
+				markerArray = JSON.parse(rawMarkersParam)
+			}
+			catch(e) {
+			}
+		}
+		
+		var marker = {
+			i: icon,
+			c: latLng
+		};
+		markerArray.push(marker)
+		
+		stringifiedMarkerArray = JSON.stringify(markerArray)
+		url.searchParams.delete('ms')
+		url.searchParams.set('ms', stringifiedMarkerArray);
+		
+		window.history.replaceState(null, null, url); // or pushState
+	}
+	
+	function iconImage(icon) {
+		return "".concat("images/", icon, ".png")
+	}
+
+
+</script>
+
+</body>
+</html>
