@@ -64,12 +64,18 @@
 	function placeDurableMarker (e) {placeNewMarker(e.latlng, "durable_bear_spider")}
 	function placeFlexibleMarker (e) {placeNewMarker(e.latlng, "flexible_cat")}
 	function placeStrongMarker (e) {placeNewMarker(e.latlng, "strong_elk_wolf")}
+	
+	function placeBoulderMarker (e) {placeNewMarker(e.latlng, "boulder")}
+	function placeIngotMarker (e) {placeNewMarker(e.latlng, "ingot")}
+	function placePeltMarker (e) {placeNewMarker(e.latlng, "pelt")}
+	function placeTimberMarker (e) {placeNewMarker(e.latlng, "timber")}
+
 
 	var map = L.map('map', {
 		crs: L.CRS.Simple,
 		minZoom: -3,
 		contextmenu: true,
-		contextmenuWidth: 160,
+		contextmenuWidth: 170,
 		contextmenuItems: [{
 			text: 'Aurelium',
 			icon: iconImage('aurelium'),
@@ -170,6 +176,22 @@
 			text: 'Strong: Elk, Wolf',
 			icon: iconImage('strong_elk_wolf'),
 			callback: placeStrongMarker
+		},'-', {
+			text: 'Boulder',
+			icon: iconImage('boulder'),
+			callback: placeBoulderMarker
+		}, {
+			text: 'Ingot',
+			icon: iconImage('ingot'),
+			callback: placeIngotMarker
+		}, {
+			text: 'Pelt',
+			icon: iconImage('pelt'),
+			callback: placePeltMarker
+		}, {
+			text: 'Timber',
+			icon: iconImage('timber'),
+			callback: placeTimberMarker
 		}]	
 	});
 	
