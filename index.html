@@ -69,6 +69,9 @@
 	function placeIngotMarker (e) {placeNewMarker(e.latlng, "ingot")}
 	function placePeltMarker (e) {placeNewMarker(e.latlng, "pelt")}
 	function placeTimberMarker (e) {placeNewMarker(e.latlng, "timber")}
+	
+	//https://commons.wikimedia.org/wiki/File:Heraldic_figures_-_Griffin.svg
+	function placeGriffinMarker (e) {placeNewMarker(e.latlng, "griffin")}
 
 
 	var map = L.map('map', {
@@ -192,6 +195,10 @@
 			text: 'Timber',
 			icon: iconImage('timber'),
 			callback: placeTimberMarker
+		},'-', {
+			text: 'Griffin',
+			icon: iconImage('griffin'),
+			callback: placeGriffinMarker
 		}]	
 	});
 	
