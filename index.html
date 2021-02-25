@@ -72,7 +72,7 @@
 	
 	//https://commons.wikimedia.org/wiki/File:Heraldic_figures_-_Griffin.svg
 	function placeGriffinMarker (e) {placeNewMarker(e.latlng, "griffin")}
-
+    function placeSpiderMarker (e) {placeNewMarker(e.latlng, "spider")}
 
 	var map = L.map('map', {
 		crs: L.CRS.Simple,
@@ -199,6 +199,10 @@
 			text: 'Griffin',
 			icon: iconImage('griffin'),
 			callback: placeGriffinMarker
+		}, {
+			text: 'Spider',
+			icon: iconImage('spider'),
+			callback: placeSpiderMarker
 		}]	
 	});
 	
