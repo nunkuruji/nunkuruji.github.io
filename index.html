@@ -73,6 +73,13 @@
 	//https://commons.wikimedia.org/wiki/File:Heraldic_figures_-_Griffin.svg
 	function placeGriffinMarker (e) {placeNewMarker(e.latlng, "griffin")}
     function placeSpiderMarker (e) {placeNewMarker(e.latlng, "spider")}
+	function placeAracoixMarker (e) {placeNewMarker(e.latlng, "aracoix")}
+	function placeUrguMarker (e) {placeNewMarker(e.latlng, "urgu")}
+	function placeSatyrMarker (e) {placeNewMarker(e.latlng, "satyr")}
+	function placeCentaurMarker (e) {placeNewMarker(e.latlng, "centaur")}
+	function placeElementalMarker (e) {placeNewMarker(e.latlng, "elemental")}
+	function placeGuinMarker (e) {placeNewMarker(e.latlng, "guin")}
+	
 
 	var map = L.map('map', {
 		crs: L.CRS.Simple,
@@ -200,9 +207,29 @@
 			icon: iconImage('griffin'),
 			callback: placeGriffinMarker
 		}, {
-			text: 'Spider',
-			icon: iconImage('spider'),
-			callback: placeSpiderMarker
+			text: 'Aracoix',
+			icon: iconImage('aracoix'),
+			callback: placeAracoixMarker
+		}, {
+			text: 'Urgu',
+			icon: iconImage('urgu'),
+			callback: placeUrguMarker
+		}, {
+			text: 'Satyr',
+			icon: iconImage('satyr'),
+			callback: placeSatyrMarker
+		}, {
+			text: 'Centaur',
+			icon: iconImage('centaur'),
+			callback: placeCentaurMarker
+		}, {
+			text: 'Elemental',
+			icon: iconImage('elemental'),
+			callback: placeElementalMarker
+		}, {
+			text: 'Guin',
+			icon: iconImage('guin'),
+			callback: placeGuinMarker
 		}]	
 	});
 	
