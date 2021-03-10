@@ -80,7 +80,7 @@
 	function placeElementalMarker (e) {placeNewMarker(e.latlng, "elemental")}
 	function placeGuinMarker (e) {placeNewMarker(e.latlng, "guin")}
 	function placeThrallMarker (e) {placeNewMarker(e.latlng, "thrall")}
-	function placeElfMarker (e) {placeNewMarker(e.latlng, "elf")}
+	function placeSunElfMarker (e) {placeNewMarker(e.latlng, "sunelf")}
 	
 
 	var map = L.map('map', {
@@ -237,9 +237,9 @@
 			icon: iconImage('thrall'),
 			callback: placeThrallMarker
 		}, {
-			text: 'Elf',
-			icon: iconImage('elf'),
-			callback: placeElfMarker
+			text: 'SunElf',
+			icon: iconImage('sunelf'),
+			callback: placeSunElfMarker
 		}]	
 	});
 	
