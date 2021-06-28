@@ -109,6 +109,7 @@ function show(data) {
 	let tab =
 		`<thead><tr>
 		<th>Name</th>
+		<th>Display Name</th>
 		<th>Members</th>
 		<th>Faction</th>
 		</tr></thead><tbody>`;
@@ -119,10 +120,11 @@ function show(data) {
 		var dateupdated = r.date_updated
 		//console.log(dateupdated)
 		//console.log(timenow)
-		if (dateupdated > timenow - thirtydays) {
+		if ((dateupdated > timenow - thirtydays) && (r.member_count >= 5)){
 		
 		tab += `<tr>
 	<td>${r.name} </td>
+	<td>${r.display_name} </td>
     <td>${r.member_count} </td>	
 	<td>${r.allegiance.faction_display_name} </td>	
 </tr>`;
