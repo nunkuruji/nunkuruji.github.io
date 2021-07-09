@@ -112,6 +112,7 @@ function show(data) {
 		<th>Display Name</th>
 		<th>Members</th>
 		<th>Faction</th>
+		<th>MOTD</th>
 		</tr></thead><tbody>`;
 	
 	// Loop to access all rows
@@ -127,6 +128,7 @@ function show(data) {
 	<td>${r.display_name} </td>
     <td>${r.member_count} </td>	
 	<td>${r.allegiance.faction_display_name} </td>	
+	<td>${r.motd} </td>	
 </tr>`;
 
 		}
