@@ -121,8 +121,8 @@ function show(data) {
 		var dateupdated = r.date_updated
 		//console.log(dateupdated)
 		//console.log(timenow)
-		if ((dateupdated > timenow - thirtydays) && (r.member_count >= 5)){
-		
+		//if ((dateupdated > timenow - thirtydays) && (r.member_count >= 5)){
+		if (r.member_count >= 5){
 		tab += `<tr>
 	<td>${r.name} </td>
 	<td>${r.display_name} </td>
