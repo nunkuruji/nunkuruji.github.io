@@ -34,6 +34,7 @@
 	// serialized markers
 	ms = params.get('ms')
 	
+	function placeTreasureMarker (e) {placeNewMarker(e.latlng, "treasure")}
 	
 	function placeAureliumMarker (e) {placeNewMarker(e.latlng, "aurelium")}
 	function placeCopperMarker (e) {placeNewMarker(e.latlng, "copper")}
@@ -82,13 +83,17 @@
 	function placeThrallMarker (e) {placeNewMarker(e.latlng, "thrall")}
 	function placeSunElfMarker (e) {placeNewMarker(e.latlng, "sunelf")}
 	
-
+	
 	var map = L.map('map', {
 		crs: L.CRS.Simple,
 		minZoom: -3,
 		contextmenu: true,
 		contextmenuWidth: 170,
 		contextmenuItems: [{
+			text: 'Treasure (enchants)',
+			icon: iconImage('treasure'),
+			callback: placeTreasureMarker
+		},'-',{
 			text: 'Aurelium',
 			icon: iconImage('aurelium'),
 			callback: placeAureliumMarker
