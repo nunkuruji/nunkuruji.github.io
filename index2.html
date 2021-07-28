@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8" />
+<link rel="stylesheet" href="leaflet/leaflet.css"/>
+<link rel="stylesheet" href="leaflet.contextmenu-1.5.1/dist/leaflet.contextmenu.css"/>
+
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        html, body, #map {
+            height: 100%;
+            width: 100%;
+        }
+
+        .r4-6,
+        .r7-9,
+        .r10 {
+          background: #333;
+          background-image: linear-gradient(135deg, #222, #555);
+
+          outline-offset: -2px;
+          outline-width: 2px;
+          outline-style: solid;
+        }
+
+        .r4-6 {
+          outline-color: #488fcc;
+        }
+
+        .r7-9 {
+          outline-color: #af5daf;
+        }
+
+        .r10 {
+          outline-color: orange;
+        }
+    </style>
+
+</head>
+<body>
+<script src="leaflet/leaflet.js"></script>
+<script src="leaflet.contextmenu-1.5.1/dist/leaflet.contextmenu.js"></script>
+<script type="text/javascript" src="json-url/dist/browser/json-url.js"></script>
+<script>
+const codec = JsonUrl('lzma');
+</script>
+<div id="map"</div>
+<script>
+	
+	var params = new URLSearchParams(window.location.search)
+
+	// campaign & zone map
+	var cn = params.get('c')
+	var mp = params.get('m')
+	var cm = "".concat("campaigns/", cn, "/", mp, ".png")
+
+	// encoded & serialized markers
+	ms = params.get('ms')
+	
+	function placeTreasureMarker (e) {placeNewMarker(e.latlng, "treasure")}
+
+	function placeAureliumMarker (e) {placeNewMarker(e.latlng, "aurelium")}
+	function placeCopperMarker (e) {placeNewMarker(e.latlng, "copper")}
+	function placeIronMarker (e) {placeNewMarker(e.latlng, "iron")}
+	function placeSilverMarker (e) {placeNewMarker(e.latlng, "silver")}
+	function placeTinMarker (e) {placeNewMarker(e.latlng, "tin")}
+
+	function placeGraniteMarker (e) {placeNewMarker(e.latlng, "granite")}
+	function placeLimestoneMarker (e) {placeNewMarker(e.latlng, "limestone")}
+	function placeMarbleMarker (e) {placeNewMarker(e.latlng, "marble")}
+	function placeSlateMarker (e) {placeNewMarker(e.latlng, "slate")}
+	function placeTravertineMarker (e) {placeNewMarker(e.latlng, "travertine")}
+
+	function placeAshMarker (e) {placeNewMarker(e.latlng, "ash")}
+	function placeBirchMarker (e) {placeNewMarker(e.latlng, "birch")}
+	function placeOakMarker (e) {placeNewMarker(e.latlng, "oak")}
+	function placeSpruceMarker (e) {placeNewMarker(e.latlng, "spruce")}
+	function placeYewMarker (e) {placeNewMarker(e.latlng, "yew")}
+
+	function placeElvenMarker (e) {placeNewMarker(e.latlng, "elven")}
+	function placeGuineceanMarker (e) {placeNewMarker(e.latlng, "guinecean")}
+	function placeHumanMarker (e) {placeNewMarker(e.latlng, "human")}
+	function placeMonsterMarker (e) {placeNewMarker(e.latlng, "monster")}
+	function placeStonebornMarker (e) {placeNewMarker(e.latlng, "stoneborn")}
+
+	function placeSoftMarker (e) {placeNewMarker(e.latlng, "soft_auroch")}
+	function placeToughMarker (e) {placeNewMarker(e.latlng, "tough_boar")}
+	function placeDurableMarker (e) {placeNewMarker(e.latlng, "durable_bear_spider")}
+	function placeFlexibleMarker (e) {placeNewMarker(e.latlng, "flexible_cat")}
+	function placeStrongMarker (e) {placeNewMarker(e.latlng, "strong_elk_wolf")}
+
+	function placeBoulderMarker (e) {placeNewMarker(e.latlng, "boulder")}
+	function placeIngotMarker (e) {placeNewMarker(e.latlng, "ingot")}
+	function placePeltMarker (e) {placeNewMarker(e.latlng, "pelt")}
+	function placeTimberMarker (e) {placeNewMarker(e.latlng, "timber")}
+
+	//https://commons.wikimedia.org/wiki/File:Heraldic_figures_-_Griffin.svg
+	function placeGriffinMarker (e) {placeNewMarker(e.latlng, "griffin")}
+	function placeSpiderMarker (e) {placeNewMarker(e.latlng, "spider")}
+	function placeAracoixMarker (e) {placeNewMarker(e.latlng, "aracoix")}
+	function placeUrguMarker (e) {placeNewMarker(e.latlng, "urgu")}
+	function placeSatyrMarker (e) {placeNewMarker(e.latlng, "satyr")}
+	function placeCentaurMarker (e) {placeNewMarker(e.latlng, "centaur")}
+	function placeElementalMarker (e) {placeNewMarker(e.latlng, "elemental")}
+	function placeGuinMarker (e) {placeNewMarker(e.latlng, "guin")}
+	function placeThrallMarker (e) {placeNewMarker(e.latlng, "thrall")}
+	function placeSunElfMarker (e) {placeNewMarker(e.latlng, "sunelf")}
+
+
+	var map = L.map('map', {
+		crs: L.CRS.Simple,
+		minZoom: -3,
+		contextmenu: true,
+		contextmenuWidth: 170,
+		contextmenuItems: [{
+			text: 'Treasure (enchants)',
+			icon: iconImage('treasure'),
+			callback: placeTreasureMarker
+		},'-',{
+			text: 'Aurelium',
+			icon: iconImage('aurelium'),
+			callback: placeAureliumMarker
+		}, {
+			text: 'Copper',
+			icon: iconImage('copper'),
+			callback: placeCopperMarker
+		}, {
+			text: 'Iron',
+			icon: iconImage('iron'),
+			callback: placeIronMarker
+		}, {
+			text: 'Silver',
+			icon: iconImage('silver'),
+			callback: placeSilverMarker
+		}, {
+			text: 'Tin',
+			icon: iconImage('tin'),
+			callback: placeTinMarker
+		},'-', {
+			text: 'Granite',
+			icon: iconImage('granite'),
+			callback: placeGraniteMarker
+		}, {
+			text: 'Limestone',
+			icon: iconImage('limestone'),
+			callback: placeLimestoneMarker
+		}, {
+			text: 'Marble',
+			icon: iconImage('marble'),
+			callback: placeMarbleMarker
+		}, {
+			text: 'Slate',
+			icon: iconImage('slate'),
+			callback: placeSlateMarker
+		}, {
+			text: 'Travertine',
+			icon: iconImage('travertine'),
+			callback: placeTravertineMarker
+		},'-', {
+			text: 'Ash',
+			icon: iconImage('ash'),
+			callback: placeAshMarker
+		}, {
+			text: 'Birch',
+			icon: iconImage('birch'),
+			callback: placeBirchMarker
+		}, {
+			text: 'Oak',
+			icon: iconImage('oak'),
+			callback: placeOakMarker
+		}, {
+			text: 'Spruce',
+			icon: iconImage('spruce'),
+			callback: placeSpruceMarker
+		}, {
+			text: 'Yew',
+			icon: iconImage('yew'),
+			callback: placeYewMarker
+		},'-', {
+			text: 'Elven',
+			icon: iconImage('elven'),
+			callback: placeElvenMarker
+		}, {
+			text: 'Guinecean',
+			icon: iconImage('guinecean'),
+			callback: placeGuineceanMarker
+		}, {
+			text: 'Human',
+			icon: iconImage('human'),
+			callback: placeHumanMarker
+		}, {
+			text: 'Monster',
+			icon: iconImage('monster'),
+			callback: placeMonsterMarker
+		}, {
+			text: 'Stoneborn',
+			icon: iconImage('stoneborn'),
+			callback: placeStonebornMarker
+		},'-', {
+			text: 'Soft: Auroch',
+			icon: iconImage('soft_auroch'),
+			callback: placeSoftMarker
+		}, {
+			text: 'Durable: Bear, Spider',
+			icon: iconImage('durable_bear_spider'),
+			callback: placeDurableMarker
+		}, {
+			text: 'Tough: Boar',
+			icon: iconImage('tough_boar'),
+			callback: placeToughMarker
+		}, {
+			text: 'Flexible: Cat',
+			icon: iconImage('flexible_cat'),
+			callback: placeFlexibleMarker
+		}, {
+			text: 'Strong: Elk, Wolf',
+			icon: iconImage('strong_elk_wolf'),
+			callback: placeStrongMarker
+		},'-', {
+			text: 'Boulder',
+			icon: iconImage('boulder'),
+			callback: placeBoulderMarker
+		}, {
+			text: 'Ingot',
+			icon: iconImage('ingot'),
+			callback: placeIngotMarker
+		}, {
+			text: 'Pelt',
+			icon: iconImage('pelt'),
+			callback: placePeltMarker
+		}, {
+			text: 'Timber',
+			icon: iconImage('timber'),
+			callback: placeTimberMarker
+		},'-', {
+			text: 'Griffin',
+			icon: iconImage('griffin'),
+			callback: placeGriffinMarker
+		}, {
+			text: 'Spider',
+			icon: iconImage('spider'),
+			callback: placeSpiderMarker
+		}, {
+			text: 'Aracoix',
+			icon: iconImage('aracoix'),
+			callback: placeAracoixMarker
+		}, {
+			text: 'Urgu',
+			icon: iconImage('urgu'),
+			callback: placeUrguMarker
+		}, {
+			text: 'Satyr',
+			icon: iconImage('satyr'),
+			callback: placeSatyrMarker
+		}, {
+			text: 'Centaur',
+			icon: iconImage('centaur'),
+			callback: placeCentaurMarker
+		}, {
+			text: 'Elemental',
+			icon: iconImage('elemental'),
+			callback: placeElementalMarker
+		}, {
+			text: 'Guin',
+			icon: iconImage('guin'),
+			callback: placeGuinMarker
+		}, {
+			text: 'Thrall',
+			icon: iconImage('thrall'),
+			callback: placeThrallMarker
+		}, {
+			text: 'SunElf',
+			icon: iconImage('sunelf'),
+			callback: placeSunElfMarker
+		}]
+	});
+
+	var yx = L.latLng;
+
+	var xy = function(x, y) {
+		if (L.Util.isArray(x)) {    // When doing xy([x, y]);
+			return yx(x[1], x[0]);
+		}
+		return yx(y, x);  // When doing xy(x, y);
+	};
+
+	var bounds = [xy(0, 0), xy(1920, 1080)];
+	var image = L.imageOverlay(cm, bounds).addTo(map);
+
+	map.setView(xy(960, 540), 0);
+
+	var CFicon = L.DivIcon.extend({
+		options: {
+			className: 'r4',
+			iconSize:     [32, 32]
+		}
+	});
+
+	var markerReferences = {};
+	var ma = [];
+	if (ms !== null){
+		try {
+		    codec.decompress(ms).then(output => { 
+				ma = JSON.parse(JSON.stringify(output)); 
+				ma.forEach(placeMarkerFromParam)
+			});
+		}
+		catch(e) {
+		}
+	}
+
+
+	function getMarkerReferenceKey(latLng) {
+		return `${latLng.lat}_${latLng.lng}`;
+	}
+
+	function isRankedMaterial(icon) {
+		return [
+			'griffin',
+			'spider',
+			'aracoix','urgu',
+			'satyr',
+			'centaur',
+			'elemental',
+			'guin',
+			'thrall',
+			'sunelf',
+			'boulder',
+			'ingot',
+			'pelt',
+			'timber'
+		].indexOf(icon) === -1;
+	}
+
+	function placeMarkerFromParam(item, index, arr) {
+      placeMarker(item.c, item.i, item.r);
+	}
+
+	function placeMarker(latLng, icon, rank) {
+		var markerOptions = {
+			title: icon,
+			rank: rank,
+			reference: getMarkerReferenceKey(latLng),
+			contextmenu: true,
+			contextmenuInheritItems: false,
+			contextmenuItems: [
+				{ text: 'Remove', callback: removeMarker }
+			]
+		};
+
+		if (isRankedMaterial(icon)) {
+			markerOptions.contextmenu = true;
+			markerOptions.contextmenuInheritItems = false;
+			markerOptions.contextmenuItems = [
+				{ text: 'Rank 4 - 6', callback: updateMarkerToRank('4-6') },
+				{ text: 'Rank 7 - 9', callback: updateMarkerToRank('7-9') },
+				{ text: 'Rank 10', callback: updateMarkerToRank('10') },
+				'-',
+				{ text: 'Remove', callback: removeMarker }
+			];
+		}
+
+		markerOptions.icon = new CFicon({
+			className: `r${rank || 0}`,
+			html: `<img src="${iconImage(icon)}" height="32" width="32"/>`
+		});
+
+	  markerReferences[markerOptions.reference] = L.marker(latLng, markerOptions)
+			.addTo(map);
+	}
+
+	function placeNewMarker(latLng, icon, rank) {
+	  placeMarker(latLng, icon, rank)
+	  updateMarkersInUrl();
+	}
+
+	function updateMarkerToRank(rank) {
+		return function(event) {
+			var marker = event.relatedTarget;
+			var options = marker.options;
+
+			removeMarker(event);
+			placeNewMarker(marker._latlng, options.title, rank);
+		};
+	}
+
+	function removeMarker(event) {
+		var marker = markerReferences[event.relatedTarget.options.reference];
+		map.removeLayer(marker);
+
+		delete markerReferences[event.relatedTarget.options.reference];
+
+		updateMarkersInUrl();
+	}
+
+	function updateMarkersInUrl() {
+		var url = new URL(window.location.href);
+		var rawMarkersParam = url.searchParams.get('ms');
+
+		var markerArray = Object.values(markerReferences).map(function(m) {
+			return {
+				i: m.options.title,
+				c: m._latlng,
+				r: m.options.rank
+			};
+		});
+
+		codec.compress(markerArray).then(output => { 
+			url.searchParams.delete('ms'); 
+			url.searchParams.set('ms', output); 
+			window.history.replaceState(null, null, url); 
+		});
+	}
+
+	function iconImage(icon) {
+		return "".concat("images/", icon, ".png")
+	}
+
+
+</script>
+
+</body>
+</html>
