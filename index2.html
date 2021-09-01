@@ -62,6 +62,7 @@ const codec = JsonUrl('lzma');
 	ms = params.get('ms')
 	
 	function placeTreasureMarker (e) {placeNewMarker(e.latlng, "treasure")}
+	function placeHiddenOutpostMarker (e) {placeNewMarker(e.latlng, "hiddenoutpost")}
 
 	function placeAureliumMarker (e) {placeNewMarker(e.latlng, "aurelium")}
 	function placeCopperMarker (e) {placeNewMarker(e.latlng, "copper")}
@@ -120,6 +121,10 @@ const codec = JsonUrl('lzma');
 			text: 'Treasure (enchants)',
 			icon: iconImage('treasure'),
 			callback: placeTreasureMarker
+		},{
+			text: 'Hidden Outpost',
+			icon: iconImage('hiddenoutpost'),
+			callback: placeHiddenOutpostMarker
 		},'-',{
 			text: 'Aurelium',
 			icon: iconImage('aurelium'),
