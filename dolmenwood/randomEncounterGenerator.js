@@ -158,7 +158,7 @@ function primaryBehavior(time){
     secEnc = ''
     console.log("behavior roll is " + d20);
     let behavior = activity[d20];
-    if (d20 >= 15) {
+    if (d20 >= 16) {
         secEnc = secondaryEncounter(time);
         return behavior + secEnc;
     } else {

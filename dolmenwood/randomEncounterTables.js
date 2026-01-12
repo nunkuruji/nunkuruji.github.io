@@ -14,25 +14,25 @@ function randomDieRoll(max,min) {
 
 let activity = [
     'celebrating',
-    'chasing ',
     'constructing',
     'defecating',
     'dying/wounded',
-    'fleeing from ',
     'hallucinating',
     'hunting/foraging',
-    'in combat with ',
     'journey/pilgrimage',
     'lost/exploring',
     'marking territory',
     'mating/courting',
-    'negotiating with ',
     'patrolling/guarding',
     'resting/camping',
     'ritual/magic',
     'sleeping',
     'trapped/imprisoned',
     'washing',
+	'chasing ',
+	'fleeing from ',
+	'in combat with ',
+	'negotiating with ',
 ]
 
 let animalEncounter = [
